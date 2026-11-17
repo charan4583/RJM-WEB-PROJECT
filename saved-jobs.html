@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Saved Jobs | SkillBridge.AI</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html#analyze" aria-label="SkillBridge.AI home">
+        <span class="brand-mark" aria-hidden="true">SB</span>
+        <span>SkillBridge.AI</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="index.html#analyze">Analyze</a>
+        <a href="index.html#jobs">Jobs</a>
+        <a id="savedJobsNav" href="saved-jobs.html" hidden>Saved Jobs</a>
+        <a href="index.html#contact-us">Contact-us</a>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme">
+          <span id="themeIcon" class="theme-icon" aria-hidden="true"></span>
+        </button>
+        <button id="authNavBtn" class="nav-action" type="button">Login</button>
+      </nav>
+    </header>
+
+    <main class="single-page-main">
+      <section class="jobs-zone saved-zone" aria-labelledby="savedJobsTitle">
+        <div class="section-heading wide center-heading">
+          <p class="eyebrow">Saved jobs</p>
+          <h1 id="savedJobsTitle">Your saved job collection</h1>
+          <p>Filter your saved jobs and apply when you are ready.</p>
+        </div>
+        <div class="panel jobs-panel">
+          <div class="panel-header">
+            <h3>Saved jobs</h3>
+            <span id="savedJobCount">0 saved</span>
+          </div>
+          <div class="filter-toolbar">
+            <strong>Filter jobs</strong>
+            <select id="savedJobFilter">
+              <option value="match">Highly matched jobs</option>
+              <option value="highSalary">High salary first</option>
+              <option value="lowSalary">Low salary first</option>
+              <option value="role">Based on job role</option>
+            </select>
+            <select id="savedJobRoleFilter" hidden>
+              <option value="">All roles</option>
+            </select>
+          </div>
+          <div id="savedJobList" class="job-list empty-state">
+            Loading saved jobs...
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="page-common.js"></script>
+    <script src="saved-jobs.js"></script>
+  </body>
+</html>

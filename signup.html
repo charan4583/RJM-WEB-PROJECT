@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Signup | SkillBridge.AI</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-auth-page="signup">
+    <header class="site-header">
+      <a class="brand" href="index.html#analyze" aria-label="SkillBridge.AI home">
+        <span class="brand-mark" aria-hidden="true">SB</span>
+        <span>SkillBridge.AI</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="index.html#analyze">Analyze</a>
+        <a href="index.html#jobs">Jobs</a>
+        <a id="savedJobsNav" href="saved-jobs.html" hidden>Saved Jobs</a>
+        <a href="index.html#contact-us">Contact-us</a>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme">
+          <span id="themeIcon" class="theme-icon" aria-hidden="true"></span>
+        </button>
+        <button id="authNavBtn" class="nav-action" type="button">Login</button>
+      </nav>
+    </header>
+
+    <main class="single-page-main">
+      <section class="auth-zone" aria-labelledby="signupTitle">
+        <div class="auth-shell single-auth">
+          <div class="section-heading center-heading">
+            <p class="eyebrow">Create account</p>
+            <h1 id="signupTitle">Signup for saved jobs</h1>
+            <p>Create your account, then login to save recommended jobs for later.</p>
+          </div>
+          <form id="signupForm" class="auth-panel">
+            <h3>Signup</h3>
+            <label>
+              Username as email id
+              <input id="signupEmail" type="email" placeholder="yourname@gmail.com" autocomplete="username" required>
+            </label>
+            <label>
+              Password
+              <input id="signupPassword" type="password" placeholder="Create password" autocomplete="new-password" required>
+            </label>
+            <label>
+              Confirm password
+              <input id="signupConfirm" type="password" placeholder="Confirm password" autocomplete="new-password" required>
+            </label>
+            <p id="signupMessage" class="auth-message"></p>
+            <div class="auth-actions">
+              <button class="primary-button" type="submit">Signup</button>
+              <button id="backToLoginFromSignup" class="ghost-button" type="button">Back to login</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="page-common.js"></script>
+    <script src="auth-pages.js"></script>
+  </body>
+</html>

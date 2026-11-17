@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SkillBridge.AI | Resume Job Matcher</title>
+    <meta
+      name="description"
+      content="SkillBridge.AI analyzes resumes, recommends suitable jobs, finds skill gaps, creates learning plans, and drafts cover letters."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#analyze" aria-label="SkillBridge.AI home">
+        <span class="brand-mark" aria-hidden="true">SB</span>
+        <span>SkillBridge.AI</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#analyze">Analyze</a>
+        <a href="#matches">Matches</a>
+        <a href="#jobs">Jobs</a>
+        <a id="savedJobsNav" class="saved-nav" href="saved-jobs.html" hidden>Saved Jobs</a>
+        <a href="#learning">Learning</a>
+        <a href="#cover-letter">Cover Letter</a>
+        <a href="#contact-us">Contact-us</a>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to dark theme">
+          <span id="themeIcon" class="theme-icon" aria-hidden="true"></span>
+        </button>
+        <button id="authNavBtn" class="nav-action" type="button">Login</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="analyze" class="hero-shell" aria-labelledby="pageTitle">
+        <div class="hero-copy">
+          <p class="eyebrow">Premium agentic career platform</p>
+          <h1 id="pageTitle">Find the right job bridge from your real skills.</h1>
+          <p>
+            SkillBridge.AI extracts resume skills, ranks suitable jobs, explains skill gaps,
+            creates learning paths, and drafts cover letters for each opportunity.
+          </p>
+          <div class="intro-actions">
+            <a class="text-link" href="#jobs">Explore suitable jobs</a>
+            <button id="loadSampleBtn" class="ghost-button" type="button">Use sample resume</button>
+            <button id="useYourResumeBtn" class="ghost-button" type="button">Use your resume</button>
+          </div>
+        </div>
+
+        <div class="scene-stage" aria-label="Animated skill bridge visualization">
+          <canvas id="bridgeScene"></canvas>
+          <div class="css-bridge" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <i></i>
+            <i></i>
+          </div>
+          <div class="scene-overlay">
+            <span>Skill graph</span>
+            <strong>Resume to role in seconds</strong>
+          </div>
+        </div>
+
+        <form id="analysisForm" class="analysis-panel">
+          <div class="section-heading">
+            <p class="eyebrow">Resume ingestion</p>
+            <h2>Analyze candidate profile</h2>
+          </div>
+
+          <div class="field-grid">
+            <label>
+              Candidate name
+              <input id="candidateName" name="candidateName" type="text" placeholder="Siva">
+            </label>
+            <label>
+              Target company
+              <input id="companyName" name="companyName" type="text" placeholder="Hiring Team">
+            </label>
+          </div>
+
+          <label>
+            Target role
+            <select id="targetRole" name="targetRole">
+              <option value="">Recommend the best role</option>
+            </select>
+          </label>
+
+          <label class="file-drop">
+            <span>Upload resume PDF or TXT</span>
+            <input id="resumeFile" name="resumeFile" type="file" accept=".pdf,.txt,.md">
+            <small id="fileName">Readable PDFs and text files are supported.</small>
+          </label>
+
+          <label>
+            Resume text
+            <textarea
+              id="resumeText"
+              name="resumeText"
+              rows="12"
+              placeholder="Paste resume content here for the most accurate analysis."
+            ></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Analyze resume</button>
+            <p id="statusMessage" role="status">Backend ready.</p>
+          </div>
+        </form>
+      </section>
+
+      <section id="matches" class="dashboard-zone" aria-labelledby="matchesTitle">
+        <div class="section-heading wide">
+          <p class="eyebrow">Role matching</p>
+          <h2 id="matchesTitle">Decision support dashboard</h2>
+        </div>
+
+        <div class="insight-grid">
+          <article class="metric-panel best-match-panel">
+            <span class="panel-label">Best fit</span>
+            <h3 id="bestRoleTitle">Run an analysis</h3>
+            <p id="bestRoleDetails">Skill match, demand weighting, and missing skills will appear here.</p>
+            <div class="score-row">
+              <strong id="bestRoleScore">0%</strong>
+              <div class="progress-track" aria-hidden="true">
+                <span id="bestRoleBar"></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="metric-panel">
+            <span class="panel-label">Accuracy</span>
+            <strong id="accuracyMetric">88.67%</strong>
+            <p>Controlled resume-job evaluation.</p>
+          </article>
+
+          <article class="metric-panel">
+            <span class="panel-label">Precision</span>
+            <strong id="precisionMetric">86%</strong>
+            <p>High relevance with fewer false recommendations.</p>
+          </article>
+
+          <article class="metric-panel">
+            <span class="panel-label">Average response</span>
+            <strong id="responseMetric">2.4s</strong>
+            <p>Agentic workflow latency target.</p>
+          </article>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel role-panel" aria-labelledby="rolesTitle">
+            <div class="panel-header">
+              <h3 id="rolesTitle">Recommended roles</h3>
+              <span id="roleCount">0 roles</span>
+            </div>
+            <div id="roleList" class="role-list empty-state">
+              Analyze a resume to rank roles by skill match and market demand.
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="skillsTitle">
+            <div class="panel-header">
+              <h3 id="skillsTitle">Extracted skills</h3>
+              <span id="skillCount">0 found</span>
+            </div>
+            <div id="skillChips" class="chip-list empty-state">No skills extracted yet.</div>
+          </section>
+
+          <section class="panel" aria-labelledby="gapTitle">
+            <div class="panel-header">
+              <h3 id="gapTitle">Skill gap analysis</h3>
+              <span id="selectedRoleName">No role selected</span>
+            </div>
+            <div id="gapList" class="gap-list empty-state">Select or analyze a role to see missing skills.</div>
+          </section>
+
+          <section class="panel" aria-labelledby="marketTitle">
+            <div class="panel-header">
+              <h3 id="marketTitle">Market demand</h3>
+              <span>Normalized weighting</span>
+            </div>
+            <div id="marketBars" class="market-bars empty-state">Demand bars will appear after analysis.</div>
+          </section>
+        </div>
+      </section>
+
+      <section id="jobs" class="jobs-zone" aria-labelledby="jobsTitle">
+        <div class="section-heading wide">
+          <p class="eyebrow">Suitable jobs</p>
+          <h2 id="jobsTitle">Best opportunities for this resume</h2>
+          <p>Every job includes title, company, location, salary, an apply link, and a job-specific cover-letter button.</p>
+        </div>
+        <div class="panel jobs-panel">
+          <div class="panel-header">
+            <h3>Recommended jobs</h3>
+            <span id="jobCount">0 jobs</span>
+          </div>
+          <div class="filter-toolbar">
+            <strong>Filter jobs</strong>
+            <select id="jobFilter">
+              <option value="match">Highly matched jobs</option>
+              <option value="highSalary">High salary first</option>
+              <option value="lowSalary">Low salary first</option>
+              <option value="role">Based on job role</option>
+            </select>
+            <select id="jobRoleFilter" hidden>
+              <option value="">All roles</option>
+            </select>
+          </div>
+          <div id="jobList" class="job-list empty-state">
+            Analyze a resume to see ranked jobs and application actions.
+          </div>
+        </div>
+      </section>
+
+      <section id="learning" class="agent-zone" aria-labelledby="learningTitle">
+        <div class="section-heading">
+          <p class="eyebrow">Tool-grounded synthesis</p>
+          <h2 id="learningTitle">Personalized learning plan</h2>
+          <p>Learning resources are selected from a verified catalog and arranged by missing skill.</p>
+        </div>
+        <div class="action-panel">
+          <button id="learningBtn" class="primary-button" type="button" disabled>Create learning plan</button>
+          <div id="learningPlan" class="learning-plan empty-state">
+            Analyze a resume first, then generate a plan for the selected role.
+          </div>
+        </div>
+      </section>
+
+      <section id="cover-letter" class="agent-zone cover-zone" aria-labelledby="coverTitle">
+        <div>
+          <div class="section-heading">
+            <p class="eyebrow">Application support</p>
+            <h2 id="coverTitle">Cover letter studio</h2>
+            <p id="coverContext">Generate a general role letter or choose a job card for a tailored application draft.</p>
+          </div>
+          <button id="coverBtn" class="primary-button" type="button" disabled>Generate role cover letter</button>
+        </div>
+        <div class="letter-panel">
+          <pre id="coverLetter">Your generated cover letter will appear here.</pre>
+          <button id="copyLetterBtn" class="ghost-button" type="button" disabled>Copy letter</button>
+        </div>
+      </section>
+
+      <section class="research-zone" aria-labelledby="researchTitle">
+        <div class="research-copy">
+          <p class="eyebrow">Research architecture</p>
+          <h2 id="researchTitle">Hybrid reasoning for transparent career guidance.</h2>
+          <p>
+            The implementation follows the paper's four layers: resume ingestion,
+            deterministic skill analysis, market-aware scoring, and agentic content
+            generation.
+          </p>
+          <img
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"
+            alt="Career dashboard displayed on a laptop"
+          >
+        </div>
+        <div class="flow-steps">
+          <article>
+            <span>01</span>
+            <h3>Extract</h3>
+            <p>Resume text is parsed and normalized into structured technical skills.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Recommend</h3>
+            <p>Suitable jobs are ranked from the candidate's skill fit and role relevance.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Apply</h3>
+            <p>Each opportunity has a direct apply action and a tailored cover-letter generator.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Improve</h3>
+            <p>Skill gaps become verified learning plans with portfolio-focused tasks.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact-us" class="contact-zone" aria-labelledby="contactTitle">
+        <div class="section-heading center-heading">
+          <p class="eyebrow">Contact-us</p>
+          <h2 id="contactTitle">Connect with SkillBridge.AI</h2>
+          <p>Reach out through mail, phone, WhatsApp, LinkedIn, Instagram, or GitHub.</p>
+        </div>
+        <div class="contact-grid">
+          <a href="mailto:ajjadasiva9955@gmail.com" aria-label="Email">
+            <span class="contact-icon icon-envelope"></span>
+          </a>
+          <a href="https://wa.me/919390144782" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+            <span class="contact-icon icon-whatsapp"></span>
+          </a>
+          <a href="tel:+919390144782" aria-label="Phone">
+            <span class="contact-icon icon-telephone"></span>
+          </a>
+          <a href="https://www.linkedin.com/in/sivasankarajjada/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <span class="contact-icon icon-linkedin"></span>
+          </a>
+          <a href="https://www.instagram.com/most_w_a_n_t_e_d_420?igsh=MXd2bmR0dThocWZ3dg%3D%3D" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <span class="contact-icon icon-instagram"></span>
+          </a>
+          <a href="https://github.com/ajjadasiva9955" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <span class="contact-icon icon-github"></span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>SkillBridge.AI career assistance framework</span>
+      <span>Resume analysis | Suitable jobs | Cover letters | Skill gaps</span>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

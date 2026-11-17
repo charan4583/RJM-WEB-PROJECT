@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | SkillBridge.AI</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-auth-page="login">
+    <header class="site-header">
+      <a class="brand" href="index.html#analyze" aria-label="SkillBridge.AI home">
+        <span class="brand-mark" aria-hidden="true">SB</span>
+        <span>SkillBridge.AI</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="index.html#analyze">Analyze</a>
+        <a href="index.html#jobs">Jobs</a>
+        <a id="savedJobsNav" href="saved-jobs.html" hidden>Saved Jobs</a>
+        <a href="index.html#contact-us">Contact-us</a>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme">
+          <span id="themeIcon" class="theme-icon" aria-hidden="true"></span>
+        </button>
+        <button id="authNavBtn" class="nav-action" type="button">Login</button>
+      </nav>
+    </header>
+
+    <main class="single-page-main">
+      <section class="auth-zone" aria-labelledby="loginTitle">
+        <div class="auth-shell single-auth">
+          <div class="section-heading center-heading">
+            <p class="eyebrow">Secure access</p>
+            <h1 id="loginTitle">Login to SkillBridge.AI</h1>
+            <p>Login to save jobs and apply later. You can still use resume analysis without login.</p>
+          </div>
+          <form id="loginForm" class="auth-panel">
+            <h3>Login</h3>
+            <label>
+              Username as email id
+              <input id="loginEmail" type="email" placeholder="yourname@gmail.com" autocomplete="username" required>
+            </label>
+            <label>
+              Password
+              <input id="loginPassword" type="password" placeholder="Enter password" autocomplete="current-password" required>
+            </label>
+            <p id="loginMessage" class="auth-message"></p>
+            <div class="auth-actions">
+              <button class="primary-button" type="submit">Login</button>
+              <button id="tryAgainBtn" class="ghost-button" type="button" hidden>Try again</button>
+              <button id="forgotBtn" class="ghost-button" type="button">Forget password</button>
+              <button id="showSignupBtn" class="ghost-button" type="button">Signup</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="page-common.js"></script>
+    <script src="auth-pages.js"></script>
+  </body>
+</html>
